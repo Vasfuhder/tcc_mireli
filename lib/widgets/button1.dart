@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:tcc_mireli/utils/HexColor.dart';
 
 class Button1 extends StatelessWidget {
-  Button1(this.text, this.size, {Key? key}) : super(key: key);
+  Button1({
+    Key? key,
+    required this.text,
+    required this.size,
+    required this.callback,
+  }) : super(key: key);
   String text = "text";
   double size = 1;
+  VoidCallback callback;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +18,7 @@ class Button1 extends StatelessWidget {
       width: 200 * size,
       height: 40 * size,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: callback,
         child: Row(
           children: [
             Text(
