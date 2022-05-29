@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tcc_mireli/utils/hexcolor.dart';
 
-class Button1 extends StatelessWidget {
-  Button1({
+class Button3 extends StatelessWidget {
+  Button3({
     Key? key,
     required this.text,
     required this.size,
@@ -21,6 +21,12 @@ class Button1 extends StatelessWidget {
         onPressed: callback,
         child: Row(
           children: [
+            Icon(
+              Icons.arrow_back_rounded,
+              color: HexColor("#252525"),
+              size: 24 * size,
+            ),
+            const SizedBox(width: 10),
             Text(
               text,
               style: TextStyle(
@@ -28,12 +34,6 @@ class Button1 extends StatelessWidget {
                 color: HexColor("#252525"),
                 fontWeight: FontWeight.bold,
               ),
-            ),
-            const SizedBox(width: 10),
-            Icon(
-              Icons.arrow_forward_rounded,
-              color: HexColor("#252525"),
-              size: 24 * size,
             )
           ],
           mainAxisAlignment: MainAxisAlignment.center,

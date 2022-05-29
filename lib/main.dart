@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tcc_mireli/screens/tela2.dart';
+import 'package:tcc_mireli/screens/tela3.dart';
 import 'package:tcc_mireli/widgets/button1.dart';
-import 'utils/HexColor.dart';
+import 'package:tcc_mireli/widgets/dialog.dart';
+import 'utils/hexcolor.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +13,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(debugShowCheckedModeBanner: false, home: Home());
+    // TODO alterar home
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Tela03(),
+      theme: ThemeData(
+        scrollbarTheme: ScrollbarThemeData(
+          thumbColor: MaterialStateProperty.all(
+            HexColor("#5F5B5B"),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -55,9 +67,14 @@ class Home extends StatelessWidget {
                       ),
                       const SizedBox(height: 74),
                       Button1(
-                          text: "Iniciar questionário",
-                          size: 2,
-                          callback: () {})
+                        text: "Iniciar questionário",
+                        size: 2,
+                        callback: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => const InitDialog());
+                        },
+                      ),
                     ],
                     crossAxisAlignment: CrossAxisAlignment.start,
                   ),
