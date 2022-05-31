@@ -1,0 +1,127 @@
+perguntas() {
+  return {
+    0: {
+      "titulo": "01 - Possui a localização do empreendimento?",
+      "type": "button",
+      "options": ["Sim", "Não"],
+      "callback": [
+        () {
+          widget.pageController.nextPage(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOutCubic,
+          );
+        },
+        () {
+          print("saaaaaaaaaaaaaaaiiiii");
+        }
+      ]
+    },
+    1: {
+      "titulo": "02 - Qual o grau de incomodidade do seu empreendimento?",
+      "type": "radio",
+      "options": ["Baixíssimo", "Baixo", "Médio", "Alto", "Altíssimo"],
+      "callback": (value) {
+        widget.respostas[1] = value;
+      }
+    },
+    2: {
+      "titulo": "03 -  Qual a área total, em metros quadrados, do lote?",
+      "type": "escrever",
+      "unidade": "m²",
+      "callback": (value) {
+        widget.respostas[2] = value;
+      },
+      "on_submitted": onSubmitted
+    },
+    3: {
+      "titulo": "04 -  Qual a menor cota altimétrica, em metros, da área?",
+      "type": "escrever",
+      "unidade": "m",
+      "callback": (value) {
+        widget.respostas[3] = value;
+      },
+      "on_submitted": onSubmitted
+    },
+    4: {
+      "titulo": "05 -  Qual o Coeficiente de Aproveitamento da edificação?",
+      "type": "escrever",
+      "unidade": "",
+      "callback": (value) {
+        widget.respostas[4] = value;
+      },
+      "on_submitted": onSubmitted
+    },
+    5: {
+      "titulo": "06 -  Qual a taxa de ocupação da edificação?",
+      "type": "escrever",
+      "unidade": "%",
+      "callback": (value) {
+        widget.respostas[5] = value;
+      },
+      "on_submitted": onSubmitted
+    },
+    6: {
+      "titulo": "07 -  Qual a taxa de permeabilidade do solo?",
+      "type": "escrever",
+      "unidade": "%",
+      "callback": (value) {
+        widget.respostas[6] = value;
+      },
+      "on_submitted": onSubmitted
+    },
+    7: {
+      "titulo": "08 -  Qual o recuo frontal da edificação?",
+      "type": "escrever",
+      "unidade": "m",
+      "callback": (value) {
+        widget.respostas[7] = value;
+      },
+      "on_submitted": onSubmitted
+    },
+    8: {
+      "titulo": "09 -  Qual o recuo de fundo da edificação?",
+      "type": "escrever",
+      "unidade": "m",
+      "callback": (value) {
+        widget.respostas[8] = value;
+      },
+      "on_submitted": onSubmitted
+    },
+    9: {
+      "titulo": "10 -  Qual o recuo da lateral leste/sul da edificação?",
+      "type": "escrever",
+      "unidade": "m",
+      "callback": (value) {
+        widget.respostas[9] = value;
+      },
+      "on_submitted": onSubmitted
+    },
+    10: {
+      "titulo": "11 -  Qual o recuo da lateral oeste/norte da edificação?",
+      "type": "escrever",
+      "unidade": "m",
+      "callback": (value) {
+        widget.respostas[10] = value;
+      },
+      "on_submitted": onSubmitted
+    },
+    11: {
+      "titulo": "12 -  Qual o recuo da lateral de esquina da edificação?",
+      "type": "escrever",
+      "unidade": "m",
+      "callback": (value) {
+        widget.respostas[11] = value;
+      },
+      "on_submitted": onSubmitted
+    },
+    12: {
+      "titulo": "13 -  Qual a altura máxima da edificação?",
+      "type": "escrever",
+      "unidade": "m",
+      "callback": (value) {
+        widget.respostas[12] = value;
+      },
+      "on_submitted": onSubmitted
+    },
+  };
+}

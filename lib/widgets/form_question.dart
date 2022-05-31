@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:tcc_mireli/utils/hexcolor.dart';
+import 'package:tcc_mireli/widgets/apoio_dialog.dart';
 import 'package:tcc_mireli/widgets/form_button.dart';
 
 class FormQuestion extends StatefulWidget {
   var pergunta;
   dynamic valores = -1;
+  dynamic itemSelecionado;
 
-  FormQuestion({Key? key, required this.pergunta}) : super(key: key);
+  var question;
+
+  FormQuestion({Key? key, required this.pergunta, this.question = false})
+      : super(key: key);
 
   @override
   State<FormQuestion> createState() => _FormQuestionState();
@@ -25,16 +30,18 @@ class _FormQuestionState extends State<FormQuestion> {
         borderRadius: BorderRadius.circular(5),
         boxShadow: [
           BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              blurRadius: 5,
-              spreadRadius: 3,
-              offset: const Offset(0, 3))
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 5,
+            spreadRadius: 3,
+            offset: const Offset(0, 3),
+          )
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          widget.question ? question(widget.pergunta) : const SizedBox.shrink(),
           const Spacer(flex: 1),
           Text(
             widget.pergunta["titulo"],
@@ -51,12 +58,44 @@ class _FormQuestionState extends State<FormQuestion> {
     );
   }
 
+  Align question(pergunta) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: TextButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => ApoioDialog(
+              texto: pergunta["texto_apoio"],
+              imagens: pergunta["imagens"],
+              nomeImagem: pergunta["nome_imagem"],
+              hasImagem: pergunta["hasImagem"],
+            ),
+          );
+        },
+        child: Icon(
+          Icons.question_mark_rounded,
+          color: HexColor("#383838"),
+        ),
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(
+            Colors.white.withOpacity(0.3),
+          ),
+          backgroundColor: MaterialStateProperty.all(HexColor("#F8E436")),
+          shape: MaterialStateProperty.all(const CircleBorder()),
+        ),
+      ),
+    );
+  }
+
   getWidget(pergunta) {
     switch (pergunta["type"]) {
       case "button":
         return button(pergunta);
-      case "radio":
-        return radio(pergunta);
+      case "selecionar":
+        return selecionar(pergunta);
+      case "escrever_numero":
+        return escreverNumero(pergunta);
       case "escrever":
         return escrever(pergunta);
     }
@@ -84,34 +123,49 @@ class _FormQuestionState extends State<FormQuestion> {
     );
   }
 
-  radio(pergunta) {
-    return Row(
-      children: List.generate(pergunta["options"].length, (index) {
-        return Expanded(
-          child: ListTile(
-            contentPadding: const EdgeInsets.all(0),
-            title: Text(
-              pergunta["options"][index],
-              style: TextStyle(color: HexColor("#B8B8B8")),
-            ),
-            leading: Radio(
-              value: index,
-              groupValue: widget.valores,
-              onChanged: (value) => setState(
-                () {
-                  widget.valores = value;
-                  pergunta["callback"](value);
-                },
-              ),
-              activeColor: HexColor("#B8B8B8"),
+  selecionar(pergunta) {
+    return Container(
+      height: 35,
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      decoration: BoxDecoration(
+        color: HexColor("#5F5B5B"),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Theme(
+        data: Theme.of(context).copyWith(canvasColor: HexColor("#5F5B5B")),
+        child: DropdownButton(
+          style: TextStyle(color: HexColor("#B8B8B8")),
+          isExpanded: false,
+          hint: Text(
+            "Selecione uma opção...",
+            style: TextStyle(color: HexColor("#B8B8B8")),
+          ),
+          items: List.generate(
+            pergunta["options"].length,
+            (index) => DropdownMenuItem(
+              value: pergunta["options"][index],
+              child: Text(pergunta["options"][index]),
             ),
           ),
-        );
-      }),
+          value: widget.itemSelecionado,
+          onChanged: (value) => setState(
+            () {
+              pergunta["callback"](value);
+              widget.itemSelecionado = value;
+            },
+          ),
+          icon: Icon(
+            Icons.arrow_drop_down,
+            color: HexColor("#9D9898"),
+          ),
+          iconSize: 42,
+          underline: const SizedBox(),
+        ),
+      ),
     );
   }
 
-  escrever(pergunta) {
+  escreverNumero(pergunta) {
     return Container(
       width: 200,
       height: 30,
@@ -124,6 +178,8 @@ class _FormQuestionState extends State<FormQuestion> {
         children: [
           Expanded(
             child: TextField(
+              autofocus: true,
+              onSubmitted: pergunta["on_submitted"],
               onChanged: pergunta["callback"],
               textAlign: TextAlign.center,
               style: const TextStyle(
@@ -150,6 +206,47 @@ class _FormQuestionState extends State<FormQuestion> {
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  escrever(pergunta) {
+    return Container(
+      width: 500,
+      height: 50,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: HexColor("#5F5B5B"),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: TextField(
+              autofocus: true,
+              onSubmitted: pergunta["on_submitted"],
+              onChanged: pergunta["callback"],
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+              maxLength: 64,
+              decoration: InputDecoration(
+                counterStyle: TextStyle(color: HexColor("#F3F3F3")),
+                fillColor: HexColor("#5F5B5B"),
+                filled: false,
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: HexColor("#383838")),
+                ),
+                counterText: "",
               ),
             ),
           ),

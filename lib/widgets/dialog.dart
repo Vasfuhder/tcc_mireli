@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tcc_mireli/screens/tela2.dart';
+import 'package:tcc_mireli/screens/tela02.dart';
 import 'package:tcc_mireli/utils/hexcolor.dart';
 import 'package:tcc_mireli/widgets/button2.dart';
 
@@ -7,6 +7,7 @@ class InitDialog extends StatelessWidget {
   const InitDialog({Key? key}) : super(key: key);
 
   final double borderRadius = 10;
+  final double padding = 14.0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,27 +44,48 @@ class InitDialog extends StatelessWidget {
               "Realizar a verificação é simples, basta ter os seguintes dados do empreendimento e responder as questões:",
               style: TextStyle(color: HexColor("#F5FF84"), fontSize: 30),
             ),
-            const SizedBox(height: 24),
-            texto(
-                "Localização da área que se pretende instalar o empreendimento"),
-            const SizedBox(height: 16),
-            texto("Atividades que se pretende instalar"),
-            const SizedBox(height: 16),
-            texto("Área total do lote"),
-            const SizedBox(height: 16),
-            texto("Curvas de nível da área"),
-            const SizedBox(height: 16),
-            texto("Largura da via de acesso ao lote"),
-            const SizedBox(height: 16),
-            texto("Coeficiente de Aproveitamento"),
-            const SizedBox(height: 16),
-            texto("Taxa de Ocupação"),
-            const SizedBox(height: 16),
-            texto("Taxa de Permeabilidade do Solo"),
-            const SizedBox(height: 16),
-            texto("Recuos em relação aos limites do lote"),
-            const SizedBox(height: 16),
+            const SizedBox(height: 30),
             Expanded(
+              flex: 4,
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      texto(
+                          "Localização da área que se pretende instalar o empreendimento"),
+                      SizedBox(height: padding),
+                      texto("Atividades que se pretende instalar"),
+                      SizedBox(height: padding),
+                      texto("Área total do lote"),
+                      SizedBox(height: padding),
+                      texto("Curvas de nível da área"),
+                      SizedBox(height: padding),
+                      texto("Grau de Incomodidade"),
+                      SizedBox(height: padding),
+                      texto("Largura da via de acesso ao lote"),
+                      SizedBox(height: padding),
+                      texto("Coeficiente de Aproveitamento"),
+                      SizedBox(height: padding),
+                      texto("Taxa de Ocupação"),
+                      SizedBox(height: padding),
+                      texto("Taxa de Permeabilidade do Solo"),
+                      SizedBox(height: padding),
+                      texto("Recuos em relação aos limites do lote"),
+                      SizedBox(height: padding),
+                      texto("Largura da frente do lote"),
+                      SizedBox(height: padding),
+                      texto("Altura da edificação"),
+                      SizedBox(height: padding),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Button2(
@@ -83,7 +105,7 @@ class InitDialog extends StatelessWidget {
     );
   }
 
-  Text texto(String text) {
+  Widget texto(String text) {
     return Text(
       text,
       style: TextStyle(
