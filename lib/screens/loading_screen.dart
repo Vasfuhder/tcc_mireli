@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:tcc_mireli/screens/tela04.dart';
+import 'package:tcc_mireli/screens/tela03.dart';
 import 'package:tcc_mireli/utils/hexcolor.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       const Duration(seconds: 10, milliseconds: 500),
       () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const Tela04(),
+          builder: (context) => const Tela03(),
         ),
       ),
     );
@@ -33,6 +33,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       fontWeight: FontWeight.normal,
     );
 
+    // TODO colocar o emoji em png ao inves de texto
     return Material(
       color: HexColor("#252525"),
       child: Row(

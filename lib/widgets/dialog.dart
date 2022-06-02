@@ -93,7 +93,7 @@ class InitDialog extends StatelessWidget {
                   size: 1.5,
                   callback: () => Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => const Tela02(),
+                      builder: (context) => Tela02(),
                     ),
                   ),
                 ),

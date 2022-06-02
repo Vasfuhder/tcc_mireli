@@ -42,7 +42,7 @@ class Tela01 extends StatelessWidget {
                       ),
                       const SizedBox(height: 74),
                       Button1(
-                        text: "Iniciar questionário",
+                        text: "Iniciar",
                         size: 2,
                         callback: () {
                           showDialog(

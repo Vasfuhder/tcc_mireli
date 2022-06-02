@@ -162,11 +162,13 @@ class ApoioDialog extends StatelessWidget {
             ),
           ),
         ),
-        SingleChildScrollView(
-          child: Text(
-            texto,
-            style: TextStyle(color: HexColor("#ECECEC"), fontSize: 24),
-            textAlign: TextAlign.justify,
+        Expanded(
+          child: SingleChildScrollView(
+            child: Text(
+              texto,
+              style: TextStyle(color: HexColor("#ECECEC"), fontSize: 24),
+              textAlign: TextAlign.justify,
+            ),
           ),
         )
       ],

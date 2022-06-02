@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tcc_mireli/screens/tela03.dart';
+import 'package:tcc_mireli/screens/tela01.dart';
 import 'utils/hexcolor.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "TCC",
       debugShowCheckedModeBanner: false,
-      home: Tela03(),
+      home: const Tela01(),
       theme: ThemeData(
         scrollbarTheme: ScrollbarThemeData(
           thumbColor: MaterialStateProperty.all(

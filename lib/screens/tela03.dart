@@ -1,403 +1,453 @@
 import 'package:flutter/material.dart';
-import 'package:tcc_mireli/screens/loading_screen.dart';
+import 'package:tcc_mireli/screens/tela01.dart';
 import 'package:tcc_mireli/utils/hexcolor.dart';
-import 'package:tcc_mireli/widgets/button1.dart';
-import 'package:tcc_mireli/widgets/button3.dart';
-import 'package:tcc_mireli/widgets/error_dialog.dart';
-import 'package:tcc_mireli/widgets/form_question.dart';
 
-class Tela03 extends StatefulWidget {
-  Tela03({Key? key}) : super(key: key);
+class Tela03 extends StatelessWidget {
+  const Tela03({Key? key}) : super(key: key);
 
-  final pageController = PageController(initialPage: 7);
-  var actual_page = 0;
+  final lorem =
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
 
-  var respostas = {};
-
-  @override
-  State<Tela03> createState() => _Tela03State();
-}
-
-class _Tela03State extends State<Tela03> {
   @override
   Widget build(BuildContext context) {
     return Material(
       color: HexColor("#252525"),
-      child: Padding(
-        padding: const EdgeInsets.all(40.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Por favor, responda:",
-              style: TextStyle(
-                color: HexColor("#F8E436"),
-                fontSize: 38,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(40),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              header(context),
+              const SizedBox(height: 70),
+              Icon(
+                Icons.check_circle_outline_rounded,
+                color: HexColor("#5DC03A"),
+                size: 250,
               ),
-            ),
-            const Spacer(),
-            Expanded(
-              child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: widget.pageController,
-                children: List.generate(
-                  perguntas().length,
-                  (index) => FormQuestion(
-                    pergunta: perguntas()[index],
-                    question: perguntas()[index]["texto_apoio"] != null
-                        ? true
-                        : false,
+              Texto(
+                text: "A instalação do seu empreendimento é viável",
+                color: HexColor("#5DC03A"),
+                fontSize: 36,
+              ),
+              const SizedBox(height: 22),
+              Texto(
+                text:
+                    "A partir das respostas inseridas nesta verificação prévia, o empreendimento se mostrou adequado ao Plano Diretor de Marabá. Solicite as Diretrizes Urbanísticas junto ao Conselho Gestor do Plano Diretor para que seja feita a verificação completa.",
+                color: HexColor("#686868"),
+                fontSize: 24,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 84),
+              questaoGenerica(
+                "O nome de identificação do empreendimento é:",
+                lorem,
+              ),
+              questaoGenerica("A localização do empreendimento é:", lorem),
+              questaoGenerica(
+                  "O Setor de Uso da localização do empreendimento é:", lorem),
+              questaoGenerica(
+                  "A Zona de Uso da localização do empreendimento é:", lorem),
+              questaoGenerica(
+                  "A classificação do uso do solo do empreendimento é:", lorem),
+              questaoGenerica(
+                  "As atividades que se pretende instalar no empreendimento são:",
+                  lorem),
+              questaoGenerica(
+                  "A classificação do empreendimento quanto aos Usos Geradores de Interferência no Tráfego é:",
+                  lorem),
+              questaoGenerica(
+                  "A classificação do empreendimento quanto aos Usos Geradores de Impacto de Vizinhança é:",
+                  lorem),
+              const SizedBox(height: 52),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Texto(
+                  text:
+                      "Os resultados da verificação dos parâmetros urbanísticos do empreendimento foram:",
+                  color: HexColor("#7C7C7C"),
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 29),
+              WContainer(
+                child: Column(
+                  children: List.generate(
+                    4,
+                    (index) => ListTile(
+                      leading: Icon(
+                        Icons.check_rounded,
+                        color: HexColor("#5DC03A"),
+                      ),
+                      title: Texto(
+                          color: HexColor("#5DC03A"),
+                          fontSize: 18,
+                          text:
+                              "A área total do empreendimento é: {area_total} m^2"),
+                    ),
                   ),
                 ),
-                onPageChanged: (page) => setState(
-                  () => widget.actual_page = page,
+              ),
+              const SizedBox(height: 42),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Texto(
+                  text:
+                      "O grau de incomodidade do seu empreendimento é {x}, os requisitos que você deve cumprir são:",
+                  fontSize: 24,
+                  color: HexColor("#7C7C7C"),
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            const Spacer(),
-            botao()
-          ],
+              const SizedBox(height: 22),
+              Table(
+                border: TableBorder.all(
+                  borderRadius: BorderRadius.circular(16),
+                  color: HexColor("#7C7C7C"),
+                  width: 2,
+                ),
+                children: const [
+                  TableRow(
+                    children: [
+                      Celula(
+                        text: "Grau de incomodidade",
+                        fontWeight: FontWeight.bold,
+                      ),
+                      Celula(
+                        text: "Localização",
+                        fontWeight: FontWeight.bold,
+                      ),
+                      Celula(
+                        text: "Poluição sonora",
+                        fontWeight: FontWeight.bold,
+                      ),
+                      Celula(
+                        text: "Poluícão Atmosférica",
+                        fontWeight: FontWeight.bold,
+                      ),
+                      Celula(
+                        text: "Poluícão Hídrica",
+                        fontWeight: FontWeight.bold,
+                      ),
+                      Celula(
+                        text: "Geração de resíduos",
+                        fontWeight: FontWeight.bold,
+                      ),
+                      Celula(
+                        text: "Vibração",
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      Celula(
+                        text: "4",
+                        fontWeight: FontWeight.normal,
+                      ),
+                      Celula(
+                        text:
+                            "Zona de Expansão da Nova Marabá, Zona de Expansão da Cidade Nova e Zonas Especiais Industriais",
+                        fontWeight: FontWeight.normal,
+                      ),
+                      Celula(
+                        text: "Diurna 65 dB\nNoturna 65 dB",
+                        fontWeight: FontWeight.normal,
+                      ),
+                      Celula(
+                        text:
+                            "Emissão de substâncias odoríferas e de fumaça conforme legislação ambiental",
+                        fontWeight: FontWeight.normal,
+                      ),
+                      Celula(
+                        text: "Conforme legislação ambiental",
+                        fontWeight: FontWeight.normal,
+                      ),
+                      Celula(
+                        text: "Classes I e II",
+                        fontWeight: FontWeight.normal,
+                      ),
+                      Celula(
+                        text: "Conforme legislação",
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 52),
+              Texto(
+                text: "Observações:",
+                color: HexColor("#7C7C7C"),
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+              const SizedBox(height: 16),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Texto(
+                  text:
+                      "O Plano Diretor Participativo de Marabá proíbe o parcelamento do solo em cinco situações. Será permitido o parcelamento se a área pretendida para se instalar o empreendimento não apresentar os seguintes casos:",
+                  color: HexColor("#B8B8B8"),
+                  fontSize: 18,
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+              const SizedBox(height: 16),
+              WContainer(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Texto(
+                      text:
+                          "I - Em terrenos alagadiços e sujeitos a inundações, antes de tomadas as providencias para assegurar o escoamento das águas;",
+                      color: HexColor("#9C9A9A"),
+                      fontSize: 18,
+                      textAlign: TextAlign.justify,
+                    ),
+                    const SizedBox(height: 16),
+                    Texto(
+                      text:
+                          "II - Em terrenos que tenham sido aterrados com material nocivo a saúde pública, sem que sejam previamente saneados;",
+                      color: HexColor("#9C9A9A"),
+                      fontSize: 18,
+                      textAlign: TextAlign.justify,
+                    ),
+                    const SizedBox(height: 16),
+                    Texto(
+                      text:
+                          "III - Em terrenos com declividade igual ou superior a 30% (trinta por cento), salvos se atendidas as exigências específicas das autoridades competentes;",
+                      color: HexColor("#9C9A9A"),
+                      fontSize: 18,
+                      textAlign: TextAlign.justify,
+                    ),
+                    const SizedBox(height: 16),
+                    Texto(
+                      text:
+                          "IV - Em terrenos onde as condições geológicas não aconselhem a edificação;",
+                      color: HexColor("#9C9A9A"),
+                      fontSize: 18,
+                      textAlign: TextAlign.justify,
+                    ),
+                    const SizedBox(height: 16),
+                    Texto(
+                      text:
+                          "V - Em áreas de preservação ecológica ou naquelas onde a poluição impeça condições sanitárias suportáveis, até a sua correção.",
+                      color: HexColor("#9C9A9A"),
+                      fontSize: 18,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Texto(
+                  text:
+                      "Os empreendimentos enquadrados como Usos Geradores de Interferência no Tráfego deverão apresentar a previsão de vagas de estacionamento em conformidade com a Lei Municipal Nº 17.873/2018, bem como as medidas de mitigação dos impactos através do Estudo Prévio de Impacto de Vizinhança e do Estudo de Interferência de Tráfego.",
+                  color: HexColor("#9C9A9A"),
+                  textAlign: TextAlign.justify,
+                  fontSize: 18,
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Texto(
+                  text:
+                      "Os empreendimentos enquadrados como Usos Geradores de Impacto à Vizinhança só terão seu licenciamento junto ao Poder Público Municipal após serem aprovados pelo Conselho Gestor do Plano Diretor (CGPD).",
+                  color: HexColor("#9C9A9A"),
+                  textAlign: TextAlign.justify,
+                  fontSize: 18,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
-  botao() {
-    if (widget.actual_page == 0) {
-      return proxima();
-    } else if (widget.actual_page > 0 && widget.actual_page <= 1) {
-      return anterior();
-    } else if (widget.actual_page == 2) {
-      return proxima();
-    } else if (widget.actual_page > 2 &&
-        widget.actual_page < perguntas().length - 1) {
-      return anteriorProxima();
-    } else {
-      return anteriorFinalizar();
-    }
-  }
-
-  Row anteriorProxima() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Button3(
-          text: "Anterior",
-          size: 1,
-          callback: () {
-            widget.pageController.previousPage(
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOutCubic,
-            );
-          },
-        ),
-        Button1(
-          text: "Próxima",
-          size: 1,
-          callback: () {
-            final resposta = widget.respostas[widget.actual_page];
-            if (resposta == -1 || resposta == "" || resposta == null) {
-              showDialog(
-                context: context,
-                builder: (_) => ErrorDialog(
-                  message: "Por favor, preencha o campo!",
-                ),
-              );
-            } else {
-              widget.pageController.nextPage(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOutCirc,
-              );
-            }
-          },
-        )
-      ],
-    );
-  }
-
-  Row anterior() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Button3(
-          text: "Anterior",
-          size: 1,
-          callback: () {
-            widget.pageController.previousPage(
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOutCirc,
-            );
-          },
-        )
-      ],
-    );
-  }
-
-  Row proxima() {
+  header(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Button1(
-          text: "Próxima",
-          size: 1,
-          callback: () {
-            final resposta = widget.respostas[widget.actual_page];
-            if (resposta == -1 || resposta == "" || resposta == null) {
-              showDialog(
-                context: context,
-                builder: (_) => ErrorDialog(
-                  message: "Por favor, preencha o campo!",
-                ),
-              );
-            } else {
-              widget.pageController.nextPage(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOutCirc,
-              );
-            }
-          },
+        Botao(
+          text: "Refazer relatório",
+          icon: Icons.replay_rounded,
+          callback: () => _refazerRelatorioAction(context),
+          preenchido: false,
+        ),
+        const SizedBox(width: 50),
+        // TODO implementar o download do formulario
+        // TODO implementar a troca entre tema claro e escuro
+        Botao(
+          text: "Baixar",
+          icon: Icons.file_download_outlined,
+          callback: () {},
+          preenchido: true,
         )
       ],
     );
   }
 
-  Row anteriorFinalizar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  _refazerRelatorioAction(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const Tela01(),
+      ),
+    );
+  }
+
+  questaoGenerica(titulo, texto) {
+    return Column(
       children: [
-        Button3(
-          text: "Anterior",
-          size: 1,
-          callback: () {
-            widget.pageController.previousPage(
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOutCubic,
-            );
-          },
+        const SizedBox(height: 52),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Texto(
+            text: titulo,
+            fontSize: 24,
+            color: HexColor("#7C7C7C"),
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        Button1(
-          text: "Finalizar",
-          size: 1,
-          callback: () {
-            final resposta = widget.respostas[widget.actual_page];
-            if (resposta == -1 || resposta == "" || resposta == null) {
-              showDialog(
-                context: context,
-                builder: (_) => ErrorDialog(
-                  message: "Por favor, preencha o campo!",
-                ),
-              );
-            } else {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => const LoadingScreen(),
-                ),
-              );
-            }
-          },
-        )
+        const SizedBox(height: 29),
+        WContainer(
+          child: Texto(
+            text: texto,
+            color: HexColor("#B8B8B8"),
+            fontSize: 18,
+            textAlign: TextAlign.justify,
+          ),
+        ),
       ],
     );
   }
+}
 
-  onSubmitted(String value) {
-    if (value.isEmpty) {
-      showDialog(
-        context: context,
-        builder: (_) => ErrorDialog(
-          message: "Por favor, preencha o campo!",
-        ),
-      );
-    } else {
-      if (widget.actual_page >= perguntas().length - 1) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const LoadingScreen(),
+class Celula extends StatelessWidget {
+  const Celula({Key? key, required this.text, required this.fontWeight})
+      : super(key: key);
+
+  final text;
+  final fontWeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return TableCell(
+      verticalAlignment: TableCellVerticalAlignment.middle,
+      child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: HexColor("#9C9A9A"),
+            fontSize: 18,
+            fontWeight: fontWeight,
           ),
-        );
-      } else {
-        widget.pageController.nextPage(
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOutCirc,
-        );
-      }
-    }
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
   }
+}
 
-  perguntas() {
-    return {
-      0: {
-        "titulo": "01 - Insira o nome do empreendimento:",
-        "type": "escrever",
-        "callback": (value) {
-          widget.respostas[widget.actual_page] = value;
-        },
-        "on_submitted": onSubmitted
-      },
-      1: {
-        "titulo": "02 - Possui a localização do empreendimento?",
-        "type": "button",
-        "options": ["Sim", "Não"],
-        "callback": [
-          () {
-            widget.pageController.nextPage(
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOutCubic,
-            );
-          },
-          () {
-            print("saaaaaaaaaaaaaaaiiiii");
-          }
-        ]
-      },
-      2: {
-        "titulo": "03 - Localização:",
-        "type": "selecionar",
-        "options": [
-          "Zona Urbana, em um dos Núcleos",
-          "Zona Urbana, em uma Zona de Expansão Urbana",
-          "Zona Urbana, em uma Vila Sede",
-          "Zona Rural, fora de uma Vila Sede"
-        ],
-        "callback": (value) {
-          widget.respostas[widget.actual_page] = value;
-        },
-        "texto_apoio":
-            "As Zonas Urbanas de Marabá correspondem ao Distrito Sede Municipal e às Vilas Sede dos Distritos Rurais, enquanto que as Zonas Rurais são as áreas dos Distritos Rurais fora das Vilas Sede, conforme apresentam os Mapas 02 e 04 do Plano Diretor.",
-        "hasImagem": true,
-        "imagens": ["assets/mapa02.jpg", "assets/mapa04.jpg"],
-        "nome_imagem": ["Mapa 02", "Mapa 04"]
-      },
-      3: {
-        "titulo": "04 - Setor de Uso:",
-        "type": "selecionar",
-        "options": [
-          "Setor Consolidado",
-          "Setor em Consolidação",
-          "Setor de Uso Controlado",
-          "Setor de Recuperação e Qualificação"
-        ],
-        "callback": (value) {
-          widget.respostas[widget.actual_page] = value;
-        },
-        "texto_apoio":
-            "O Zoneamento Municipal delimita os Setores de Uso considerando as características da ocupação do solo e a qualidade da infraestrutura, sendo definidos conforme o Mapa 03 do Plano Diretor.",
-        "hasImagem": true,
-        // TODO alterar o mapa
-        "imagens": ["assets/mapa02.jpg"],
-        "nome_imagem": ["Mapa 03"]
-      },
-      4: {
-        "titulo": "05 - Zona de Uso:",
-        "type": "selecionar",
-        "options": [
-          "Zona Mista Residencial",
-          "Zona Especial de Interesse Social",
-          "Zona Especial de Interesse Ambiental",
-          "Zona Especial de Proteção do Patrimônio Histórico",
-          "Zona Especial de Segurança Alimentar",
-          "Zona Especial Industrial",
-          "Zona Especial de Comércio e Serviços",
-          "Zona Especial de Interesse Turístico",
-          "Zona Especial de Interesse Urbanístico"
-        ],
-        "callback": (value) {
-          widget.respostas[widget.actual_page] = value;
-        },
-        "texto_apoio":
-            "O Zoneamento Municipal delimita as Zonas de Uso considerando os usos permitidos e os parâmetros de ocupação do solo, sendo definidas conforme o Mapa 06 do Plano Diretor. ",
-        "hasImagem": true,
-        "imagens": ["assets/mapa06.jpg"],
-        "nome_imagem": ["Mapa 06"]
-      },
-      5: {
-        "titulo": "06 - O empreendimento se encontra em uma Zona de Outorga?",
-        "type": "selecionar",
-        "options": ["Sim", "Não"],
-        "callback": (value) {
-          widget.respostas[widget.actual_page] = value;
-        },
-        "texto_apoio":
-            "As Zonas de Outorga são as áreas delimitadas pelo Mapa 05 do Plano Diretor e as áreas correspondentes aos Setores Consolidados, delimitados pelo Mapa 03 (exceto no Núcleo Marabá Pioneira e fora do Distrito Sede Municipal).",
-        "hasImagem": true,
-        // TODO alterar o mapa
-        "imagens": ["assets/mapa02.jpg", "assets/mapa05.jpg"],
-        "nome_imagem": ["Mapa 03", "Mapa 05"]
-      },
-      6: {
-        "titulo": "07 - Classificação do Uso do Solo:",
-        "type": "selecionar",
-        "options": [
-          "Residencial Unifamiliar",
-          "Residencial Multifamiliar",
-          "Comercial",
-          "Institucional",
-          "Prestação de serviços",
-          "Industrial",
-          "Misto",
-          "Rural",
-        ],
-        "callback": (value) {
-          widget.respostas[widget.actual_page] = value;
-        },
-        "texto_apoio":
-            "O uso residencial é destinado somente à moradia. O uso não-residencial envolve as atividades de produção industrial, comércio em geral, prestação de serviços, atividades institucionais, atividades agrícolas e pecuárias. O uso misto é quando na mesma edificação existe o uso residencial e não-residencial.",
-        "hasImagem": false,
-        "imagens": [],
-        "nome_imagem": []
-      },
-      7: {
-        "titulo": "08 - Atividades que se pretendem instalar:",
-        "type": "escrever",
-        "callback": (value) {
-          widget.respostas[widget.actual_page] = value;
-        },
-        "on_submitted": onSubmitted,
-        "texto_apoio":
-            "Elenque as atividades residenciais, não-residenciais ou mistas que se pretende instalar no empreendimento. Por exemplo: venda por atacado/varejo; produção de ferro-gusa; serviços de hotelaria; revenda de combustíveis; Estação de Rádio Base; transportadora; galpão de armazenamento; etc.",
-        "hasImagem": false,
-        "imagens": [],
-        "nome_imagem": []
-      },
-      8: {
-        "titulo": "09 - Grau de Incomodidade:",
-        "type": "selecionar",
-        "options": [
-          "Grau 1 - Baixíssimo",
-          "Grau 2 - Baixo",
-          "Grau 3 - Médio",
-          "Grau 4 - Alto",
-          "Grau 5 - Altíssimo",
-        ],
-        "callback": (value) {
-          widget.respostas[widget.actual_page] = value;
-        },
-        "texto_apoio":
-            "É um parâmetro que indica a capacidade de uma atividade de gerar incômodos relacionados à poluição ambiental e que estabelece a localização que tal atividade pode ser instalada. Os Graus de Incomodidade vão de 1 a 5, sendo:\n\nGrau 1 – Baixíssimo: A sua capacidade de gerar incômodos, poluição e nocividade a população, fauna e flora é consideravelmente baixíssima, podendo localizar-se na macrozona estritamente residencial urbana, ou de hospitais ou de escolas;\n\nGrau 2 – Baixo: A sua capacidade de gerar incômodos, poluição e nocividade a população, fauna e flora é consideravelmente baixa, podendo localizar-se na macrozona em área mista, predominantemente residencial;\n\nGrau 3 – Médio: A sua capacidade de gerar incômodos, poluição e nocividade a população, fauna e flora é consideravelmente média, devendo assim instalar-se nos principais corredores de tráfego da zona urbana, respeitando assim as legislações e normas municipais, estaduais e federais;\n\nGrau 4 – Alto: A sua capacidade de gerar incômodos, poluição e nocividade a população, fauna e flora é consideravelmente alta, devendo assim instalar-se nas Zonas de Expansão da Cidade Nova, Zona de Expansão da Nova Marabá e Zonas Especiais Industriais, respeitando assim as legislações e normas municipais, estaduais e federais;\n\nGrau 5 – Altíssimo: A sua capacidade de gerar incômodos, poluição e nocividade a população, fauna e flora é consideravelmente alta, devendo assim instalar-se nas Zonas Especiais Industriais e Zona Rural, respeitando assim as legislações e normas municipais, estaduais e federais.",
-        "hasImagem": false,
-        "imagens": [],
-        "nome_imagem": []
-      },
-      9: {
-        "titulo":
-            "10 - Classificação das atividades quanto aos Usos Geradores de Interferência no Tráfego:",
-        "type": "selecionar",
-        "options": [
-          "Geradoras de carga e descarga",
-          "Geradoras de embarque e desembarque",
-          "Geradoras de tráfego de pedestres",
-          "Geradoras de viagens",
-          "Nenhuma das anteriores ",
-        ],
-        "callback": (value) {
-          widget.respostas[widget.actual_page] = value;
-        },
-        "texto_apoio":
-            "Para qualquer dessas atividades, o empreendimento é considerado como Uso Gerador de Interferência no Tráfego.",
-        "hasImagem": false,
-        "imagens": [],
-        "nome_imagem": []
-      },
-    };
+class WContainer extends StatelessWidget {
+  const WContainer({Key? key, required this.child}) : super(key: key);
+
+  final child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: HexColor("#383838"), borderRadius: BorderRadius.circular(5)),
+      child: child,
+    );
+  }
+}
+
+class Texto extends StatelessWidget {
+  const Texto(
+      {Key? key,
+      required this.text,
+      required this.fontSize,
+      required this.color,
+      this.textAlign = TextAlign.start,
+      this.fontWeight = FontWeight.normal})
+      : super(key: key);
+
+  final text;
+  final fontSize;
+  final color;
+  final fontWeight;
+  final textAlign;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+      ),
+      textAlign: textAlign,
+    );
+  }
+}
+
+class Botao extends StatelessWidget {
+  const Botao({
+    Key? key,
+    required this.text,
+    required this.icon,
+    required this.callback,
+    required this.preenchido,
+  }) : super(key: key);
+
+  final text;
+  final icon;
+  final callback;
+  final preenchido;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ElevatedButton(
+        onPressed: callback,
+        style: ElevatedButton.styleFrom(
+          primary: preenchido ? HexColor("#090808") : HexColor("#252525"),
+          side: BorderSide(
+            width: 2,
+            color:
+                preenchido ? Colors.transparent : Colors.grey.withOpacity(0.8),
+          ),
+        ),
+        child: Row(
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                color: HexColor("#A1A1A1"),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Icon(
+              icon,
+              color: HexColor("#A1A1A1"),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

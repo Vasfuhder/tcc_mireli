@@ -8,6 +8,8 @@ class FormQuestion extends StatefulWidget {
   var pergunta;
   dynamic valores = -1;
   dynamic itemSelecionado;
+  dynamic itemSelecionado2;
+  bool bloquear = true;
 
   var question;
 
@@ -94,6 +96,8 @@ class _FormQuestionState extends State<FormQuestion> {
         return button(pergunta);
       case "selecionar":
         return selecionar(pergunta);
+      case "selecionar_2":
+        return selecionar2(pergunta);
       case "escrever_numero":
         return escreverNumero(pergunta);
       case "escrever":
@@ -247,6 +251,105 @@ class _FormQuestionState extends State<FormQuestion> {
                   borderSide: BorderSide(color: HexColor("#383838")),
                 ),
                 counterText: "",
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  selecionar2(pergunta) {
+    // ignore: prefer_function_declarations_over_variables
+    var callback = (value) => setState(
+          () {
+            pergunta["callback2"](value);
+            widget.itemSelecionado2 = value;
+          },
+        );
+
+    return Expanded(
+      flex: 8,
+      child: Column(
+        children: [
+          Container(
+            height: 35,
+            padding: const EdgeInsets.only(left: 16, right: 16),
+            decoration: BoxDecoration(
+              color: HexColor("#5F5B5B"),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Theme(
+              data:
+                  Theme.of(context).copyWith(canvasColor: HexColor("#5F5B5B")),
+              child: DropdownButton(
+                style: TextStyle(color: HexColor("#B8B8B8")),
+                isExpanded: true,
+                hint: Text(
+                  "Selecione uma opção...",
+                  style: TextStyle(color: HexColor("#B8B8B8")),
+                ),
+                items: List.generate(
+                  pergunta["options"].length,
+                  (index) => DropdownMenuItem(
+                    value: pergunta["options"][index],
+                    child: Text(pergunta["options"][index]),
+                  ),
+                ),
+                value: widget.itemSelecionado,
+                onChanged: (value) => setState(
+                  () {
+                    widget.bloquear = true;
+                    if (value == pergunta["options"][0]) {
+                      pergunta["callback2"]("");
+                      widget.bloquear = false;
+                    }
+                    pergunta["callback"](value);
+                    widget.itemSelecionado = value;
+                  },
+                ),
+                icon: Icon(
+                  Icons.arrow_drop_down,
+                  color: HexColor("#9D9898"),
+                ),
+                iconSize: 42,
+                underline: const SizedBox(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 30),
+          Container(
+            height: 35,
+            padding: const EdgeInsets.only(left: 16, right: 16),
+            decoration: BoxDecoration(
+              color: HexColor("#5F5B5B"),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Theme(
+              data:
+                  Theme.of(context).copyWith(canvasColor: HexColor("#5F5B5B")),
+              child: DropdownButton(
+                style: TextStyle(color: HexColor("#B8B8B8")),
+                isExpanded: true,
+                hint: Text(
+                  "Selecione uma opção...",
+                  style: TextStyle(color: HexColor("#B8B8B8")),
+                ),
+                value: widget.itemSelecionado2,
+                onChanged: widget.bloquear ? null : callback,
+                items: List.generate(
+                  pergunta["options2"].length,
+                  (index) => DropdownMenuItem(
+                    value: pergunta["options2"][index],
+                    child: Text(pergunta["options2"][index]),
+                  ),
+                ),
+                icon: Icon(
+                  Icons.arrow_drop_down,
+                  color: HexColor("#9D9898"),
+                ),
+                iconSize: 42,
+                underline: const SizedBox(),
               ),
             ),
           ),
