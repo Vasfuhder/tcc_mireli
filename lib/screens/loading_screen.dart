@@ -5,7 +5,9 @@ import 'package:tcc_mireli/screens/tela03.dart';
 import 'package:tcc_mireli/utils/hexcolor.dart';
 
 class LoadingScreen extends StatefulWidget {
-  const LoadingScreen({Key? key}) : super(key: key);
+  Map data;
+
+  LoadingScreen({Key? key, required this.data}) : super(key: key);
 
   @override
   State<LoadingScreen> createState() => _LoadingScreenState();
@@ -19,7 +21,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       const Duration(seconds: 10, milliseconds: 500),
       () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const Tela03(),
+          builder: (context) => Tela03(data: widget.data),
         ),
       ),
     );

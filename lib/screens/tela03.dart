@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:tcc_mireli/analise.dart';
 import 'package:tcc_mireli/screens/tela01.dart';
 import 'package:tcc_mireli/utils/hexcolor.dart';
 
 class Tela03 extends StatelessWidget {
-  const Tela03({Key? key}) : super(key: key);
+  Map data;
+
+  Tela03({Key? key, required this.data}) : super(key: key);
 
   final lorem =
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
 
   @override
   Widget build(BuildContext context) {
+    resultado(data);
     return Material(
       color: HexColor("#252525"),
       child: SingleChildScrollView(
@@ -40,25 +44,33 @@ class Tela03 extends StatelessWidget {
               ),
               const SizedBox(height: 84),
               questaoGenerica(
-                "O nome de identificação do empreendimento é:",
-                lorem,
+                  "O nome de identificação do empreendimento é:", data[0]),
+              questaoGenerica(
+                  "A localização do empreendimento é:",
+                  data["option1"] != ""
+                      ? "${data[2]}: ${data["option1"]}"
+                      : data[2]),
+              questaoGenerica(
+                  "O Setor de Uso da localização do empreendimento é:",
+                  data[3]),
+              questaoGenerica(
+                "A Zona de Uso da localização do empreendimento é:",
+                resultadoZona(data[4]),
               ),
-              questaoGenerica("A localização do empreendimento é:", lorem),
               questaoGenerica(
-                  "O Setor de Uso da localização do empreendimento é:", lorem),
-              questaoGenerica(
-                  "A Zona de Uso da localização do empreendimento é:", lorem),
-              questaoGenerica(
-                  "A classificação do uso do solo do empreendimento é:", lorem),
+                  "A classificação do uso do solo do empreendimento é:",
+                  resultadoUso(data[4], data[6], data[2])),
               questaoGenerica(
                   "As atividades que se pretende instalar no empreendimento são:",
-                  lorem),
+                  data[7]),
               questaoGenerica(
                   "A classificação do empreendimento quanto aos Usos Geradores de Interferência no Tráfego é:",
-                  lorem),
+                  data[9]),
               questaoGenerica(
                   "A classificação do empreendimento quanto aos Usos Geradores de Impacto de Vizinhança é:",
-                  lorem),
+                  data["option2"] != ""
+                      ? "${data[10]} ${data["option2"]}"
+                      : data[10]),
               const SizedBox(height: 52),
               Align(
                 alignment: Alignment.centerLeft,
@@ -94,7 +106,7 @@ class Tela03 extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Texto(
                   text:
-                      "O grau de incomodidade do seu empreendimento é {x}, os requisitos que você deve cumprir são:",
+                      "O grau de incomodidade do seu empreendimento é ${data[8].substring(5, 6)}, os requisitos que você deve cumprir são:",
                   fontSize: 24,
                   color: HexColor("#7C7C7C"),
                   fontWeight: FontWeight.bold,
@@ -107,8 +119,8 @@ class Tela03 extends StatelessWidget {
                   color: HexColor("#7C7C7C"),
                   width: 2,
                 ),
-                children: const [
-                  TableRow(
+                children: [
+                  const TableRow(
                     children: [
                       Celula(
                         text: "Grau de incomodidade",
@@ -143,33 +155,31 @@ class Tela03 extends StatelessWidget {
                   TableRow(
                     children: [
                       Celula(
-                        text: "4",
+                        text: getGrauIncomodidade(data[8]),
                         fontWeight: FontWeight.normal,
                       ),
                       Celula(
-                        text:
-                            "Zona de Expansão da Nova Marabá, Zona de Expansão da Cidade Nova e Zonas Especiais Industriais",
+                        text: getLocalizacao(data[8]),
                         fontWeight: FontWeight.normal,
                       ),
                       Celula(
-                        text: "Diurna 65 dB\nNoturna 65 dB",
+                        text: getPoluicaoSonora(data[8]),
                         fontWeight: FontWeight.normal,
                       ),
                       Celula(
-                        text:
-                            "Emissão de substâncias odoríferas e de fumaça conforme legislação ambiental",
+                        text: getPoluicaoAtmosferica(data[8]),
                         fontWeight: FontWeight.normal,
                       ),
                       Celula(
-                        text: "Conforme legislação ambiental",
+                        text: getPoluicaoHidrica(data[8]),
                         fontWeight: FontWeight.normal,
                       ),
                       Celula(
-                        text: "Classes I e II",
+                        text: getGeracaoDeResiduos(data[8]),
                         fontWeight: FontWeight.normal,
                       ),
                       Celula(
-                        text: "Conforme legislação",
+                        text: getVibracao(data[8]),
                         fontWeight: FontWeight.normal,
                       ),
                     ],
@@ -194,7 +204,7 @@ class Tela03 extends StatelessWidget {
                   textAlign: TextAlign.justify,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 32),
               WContainer(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -242,7 +252,7 @@ class Tela03 extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 32),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Texto(

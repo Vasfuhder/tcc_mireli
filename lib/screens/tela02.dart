@@ -14,8 +14,8 @@ class Tela02 extends StatefulWidget {
   var actual_page = 0;
 
   var respostas = {};
-  var option1;
-  var option2;
+  var option1 = "";
+  var option2 = "";
 
   @override
   State<Tela02> createState() => _Tela02State();
@@ -194,9 +194,12 @@ class _Tela02State extends State<Tela02> {
                 ),
               );
             } else {
+              Map temp = widget.respostas;
+              temp["option1"] = widget.option1;
+              temp["option2"] = widget.option2;
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => const LoadingScreen(),
+                  builder: (context) => LoadingScreen(data: temp),
                 ),
               );
             }
@@ -216,9 +219,12 @@ class _Tela02State extends State<Tela02> {
       );
     } else {
       if (widget.actual_page >= perguntas().length - 1) {
+        Map temp = widget.respostas;
+        temp["option1"] = widget.option1;
+        temp["option2"] = widget.option2;
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => const LoadingScreen(),
+            builder: (context) => LoadingScreen(data: temp),
           ),
         );
       } else {
