@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       5: "Sim",
       6: "Residencial Multifamiliar",
       7: "asofmasof",
-      8: "Grau 1 - Baixíssimo",
+      8: "Grau 2 - Baixo",
       9: "Geradoras de carga e descarga",
       10: "Projetos de implantação, modificação, ampliação ou regularização de...",
       11: 1.23,

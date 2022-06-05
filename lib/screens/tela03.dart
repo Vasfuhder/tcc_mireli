@@ -8,9 +8,6 @@ class Tela03 extends StatelessWidget {
 
   Tela03({Key? key, required this.data}) : super(key: key);
 
-  final lorem =
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
-
   @override
   Widget build(BuildContext context) {
     resultado(data);
@@ -24,14 +21,22 @@ class Tela03 extends StatelessWidget {
             children: [
               header(context),
               const SizedBox(height: 70),
-              Icon(
-                Icons.check_circle_outline_rounded,
-                color: HexColor("#5DC03A"),
-                size: 250,
-              ),
+              resultado(data)
+                  ? Icon(
+                      Icons.check_circle_outline_rounded,
+                      color: HexColor("#5DC03A"),
+                      size: 250,
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(bottom: 32.0),
+                      child: Image.asset("x.png"),
+                    ),
               Texto(
-                text: "A instalação do seu empreendimento é viável",
-                color: HexColor("#5DC03A"),
+                text: resultado(data)
+                    ? "A instalação do seu empreendimento é viável"
+                    : "A instalação do seu empreendimento não é viável",
+                color:
+                    resultado(data) ? HexColor("#5DC03A") : HexColor("#F91C1C"),
                 fontSize: 36,
               ),
               const SizedBox(height: 22),
@@ -85,20 +90,28 @@ class Tela03 extends StatelessWidget {
               const SizedBox(height: 29),
               WContainer(
                 child: Column(
-                  children: List.generate(
-                    4,
-                    (index) => ListTile(
-                      leading: Icon(
-                        Icons.check_rounded,
-                        color: HexColor("#5DC03A"),
-                      ),
-                      title: Texto(
-                          color: HexColor("#5DC03A"),
-                          fontSize: 18,
-                          text:
-                              "A área total do empreendimento é: {area_total} m^2"),
-                    ),
-                  ),
+                  children: [
+                    parametro([true, "A área total do lote é ${data[11]} m²"]),
+                    parametro(getCotaAltimetrica(data[12])),
+                    parametro(getCoeficienteAproveitamento(
+                        data[13], data[5], data["option1"])),
+                    parametro(
+                        getTaxaOcupacao(data[14], data[3], data[6], data[2])),
+                    parametro(getTaxaPermeabilidade(data[15])),
+                    parametro(
+                        getRecuoFrontal(data[16], data[3], data[6], data[2])),
+                    parametro(
+                        getRecuoFundo(data[17], data[3], data[6], data[2])),
+                    parametro(getRecuoLateralDireita(
+                        data[18], data[3], data[6], data[2])),
+                    parametro(getRecuoLateralEsquerda(data[19], data[6])),
+                    parametro(getRecuoLateralEsquina(
+                        data[20], data[3], data[6], data[2])),
+                    parametro(
+                        getAlturaEdificacao(data[21], data[23], data[16])),
+                    parametro(
+                        getLarguraFrente(data[22], data[3], data[6], data[2]))
+                  ],
                 ),
               ),
               const SizedBox(height: 42),
@@ -106,7 +119,7 @@ class Tela03 extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Texto(
                   text:
-                      "O grau de incomodidade do seu empreendimento é ${data[8].substring(5, 6)}, os requisitos que você deve cumprir são:",
+                      "O Grau de Incomodidade do seu empreendimento é ${data[8].substring(5, 6)}, os requisitos que você deve cumprir são:",
                   fontSize: 24,
                   color: HexColor("#7C7C7C"),
                   fontWeight: FontWeight.bold,
@@ -123,7 +136,7 @@ class Tela03 extends StatelessWidget {
                   const TableRow(
                     children: [
                       Celula(
-                        text: "Grau de incomodidade",
+                        text: "Grau de Incomodidade",
                         fontWeight: FontWeight.bold,
                       ),
                       Celula(
@@ -280,6 +293,20 @@ class Tela03 extends StatelessWidget {
     );
   }
 
+  ListTile parametro(texto) {
+    return ListTile(
+      leading: Icon(
+        texto[0] == true ? Icons.check : Icons.close,
+        color: texto[0] == true ? HexColor("#5DC03A") : HexColor("#F91C1C"),
+      ),
+      title: Texto(
+        color: texto[0] == true ? HexColor("#5DC03A") : HexColor("#F91C1C"),
+        fontSize: 18,
+        text: texto[1],
+      ),
+    );
+  }
+
   header(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -328,7 +355,9 @@ class Tela03 extends StatelessWidget {
         WContainer(
           child: Texto(
             text: texto,
-            color: HexColor("#B8B8B8"),
+            color: texto.contains("não")
+                ? HexColor("#F91C1C")
+                : HexColor("#B8B8B8"),
             fontSize: 18,
             textAlign: TextAlign.justify,
           ),
