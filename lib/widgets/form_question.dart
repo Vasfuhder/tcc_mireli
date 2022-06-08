@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:tcc_mireli/utils/hexcolor.dart';
-import 'package:tcc_mireli/widgets/apoio_dialog.dart';
-import 'package:tcc_mireli/widgets/form_button.dart';
+import 'package:verificacao/utils/hexcolor.dart';
+import 'package:verificacao/widgets/apoio_dialog.dart';
+import 'package:verificacao/widgets/form_button.dart';
 
 class FormQuestion extends StatefulWidget {
   var pergunta;

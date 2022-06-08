@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tcc_mireli/screens/tela01.dart';
-import 'package:tcc_mireli/utils/hexcolor.dart';
-import 'package:tcc_mireli/widgets/button2.dart';
+import 'package:verificacao/screens/tela01.dart';
+import 'package:verificacao/utils/hexcolor.dart';
+import 'dart:math' as math;
 
 class SemLocalizacao extends StatelessWidget {
   const SemLocalizacao({Key? key}) : super(key: key);
@@ -15,7 +15,14 @@ class SemLocalizacao extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Spacer(),
-          Image.asset("assets/x.png"),
+          Transform.rotate(
+            angle: -math.pi / 4,
+            child: Icon(
+              Icons.add_circle_outline_sharp,
+              color: HexColor("#F91C1C"),
+              size: 250,
+            ),
+          ),
           const SizedBox(height: 32),
           Text(
             "Sem a localização do empreendimento não é possível realizar a verificação",
@@ -28,7 +35,7 @@ class SemLocalizacao extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () => Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => const Tela01(),
+                  builder: (context) => Tela01(),
                 ),
               ),
               child: Row(

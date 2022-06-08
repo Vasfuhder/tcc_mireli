@@ -1,8 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:tcc_mireli/screens/tela03.dart';
-import 'package:tcc_mireli/utils/hexcolor.dart';
+import 'package:verificacao/screens/tela03.dart';
+import 'package:verificacao/utils/hexcolor.dart';
 
 class LoadingScreen extends StatefulWidget {
   Map data;
@@ -34,8 +34,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
       fontSize: 64,
       fontWeight: FontWeight.normal,
     );
-
-    // TODO colocar o emoji em png ao inves de texto
     return Material(
       color: HexColor("#252525"),
       child: Row(
@@ -62,7 +60,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 duration: const Duration(seconds: 4),
               ),
               RotateAnimatedText(
-                "Verificando viabilidade \u{1f9d0}",
+                "Verificando viabilidade...",
                 textStyle: defaultStyle,
                 duration: const Duration(seconds: 4),
               ),

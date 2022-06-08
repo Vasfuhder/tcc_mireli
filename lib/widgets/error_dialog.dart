@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tcc_mireli/utils/hexcolor.dart';
-import 'package:tcc_mireli/widgets/button2.dart';
+import 'package:verificacao/utils/hexcolor.dart';
+import 'package:verificacao/widgets/button2.dart';
 
 class ErrorDialog extends StatelessWidget {
   var message;

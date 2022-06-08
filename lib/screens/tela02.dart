@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tcc_mireli/screens/loading_screen.dart';
-import 'package:tcc_mireli/screens/sem_loc.dart';
-import 'package:tcc_mireli/utils/hexcolor.dart';
-import 'package:tcc_mireli/widgets/button1.dart';
-import 'package:tcc_mireli/widgets/button3.dart';
-import 'package:tcc_mireli/widgets/error_dialog.dart';
-import 'package:tcc_mireli/widgets/form_question.dart';
+import 'package:verificacao/screens/loading_screen.dart';
+import 'package:verificacao/screens/sem_loc.dart';
+import 'package:verificacao/utils/hexcolor.dart';
+import 'package:verificacao/widgets/button1.dart';
+import 'package:verificacao/widgets/button3.dart';
+import 'package:verificacao/widgets/error_dialog.dart';
+import 'package:verificacao/widgets/form_question.dart';
 
 class Tela02 extends StatefulWidget {
   Tela02({Key? key}) : super(key: key);
@@ -39,7 +39,6 @@ class _Tela02State extends State<Tela02> {
               ),
             ),
             const Spacer(),
-            // TODO corrigir o valor que nao aparece de novo quando volta
             Expanded(
               flex: 2,
               child: PageView(
@@ -82,7 +81,6 @@ class _Tela02State extends State<Tela02> {
     }
   }
 
-  // TODO corrigir bug da verificacao da questao 11
   Row anteriorProxima() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,6 +101,16 @@ class _Tela02State extends State<Tela02> {
           callback: () {
             final resposta = widget.respostas[widget.actual_page];
             if (resposta == -1 || resposta == "" || resposta == null) {
+              showDialog(
+                context: context,
+                builder: (_) => ErrorDialog(
+                  message: "Por favor, preencha o campo!",
+                ),
+              );
+            } else if (widget.actual_page == 10 &&
+                widget.option2 == "" &&
+                widget.respostas[widget.actual_page] ==
+                    "Projetos de implantação, modificação, ampliação ou regularização de...") {
               showDialog(
                 context: context,
                 builder: (_) => ErrorDialog(
@@ -149,6 +157,16 @@ class _Tela02State extends State<Tela02> {
           callback: () {
             final resposta = widget.respostas[widget.actual_page];
             if (resposta == -1 || resposta == "" || resposta == null) {
+              showDialog(
+                context: context,
+                builder: (_) => ErrorDialog(
+                  message: "Por favor, preencha o campo!",
+                ),
+              );
+            } else if (widget.actual_page == 2 &&
+                widget.option1 == "" &&
+                widget.respostas[widget.actual_page] ==
+                    "Zona Urbana, em um dos Núcleos") {
               showDialog(
                 context: context,
                 builder: (_) => ErrorDialog(

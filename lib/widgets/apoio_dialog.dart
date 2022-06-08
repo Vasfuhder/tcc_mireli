@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tcc_mireli/utils/hexcolor.dart';
-import 'package:tcc_mireli/widgets/button2.dart';
+import 'package:verificacao/utils/hexcolor.dart';
+import 'package:verificacao/widgets/button2.dart';
 
 class ApoioDialog extends StatelessWidget {
   List imagens;
@@ -144,7 +144,6 @@ class ApoioDialog extends StatelessWidget {
     );
   }
 
-  // TODO corrigir o posicionamento do texto
   sem_imagem(context) {
     return Column(
       mainAxisSize: MainAxisSize.min,

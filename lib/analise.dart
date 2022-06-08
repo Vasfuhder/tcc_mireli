@@ -1,48 +1,57 @@
 bool resultado(Map data) {
-  bool resultado = true;
-
   if (resultadoZona(data[4]).contains("não")) {
-    resultado = false;
+    return false;
   }
   if (resultadoUso(data[4], data[6], data[2]).contains("não")) {
-    resultado = false;
+    return false;
   }
-  if (getCotaAltimetrica(data[12])[0] == false) {
-    resultado = false;
+  if (getCotaAltimetrica(double.parse(data[12]))[0] == false) {
+    return false;
   }
-  if (getCoeficienteAproveitamento(data[13], data[5], data["option1"])[0] ==
+  if (getCoeficienteAproveitamento(
+          double.parse(data[13]), data[5], data["option1"])[0] ==
       false) {
-    resultado = false;
+    return false;
   }
-  if (getTaxaOcupacao(data[14], data[3], data[6], data[2])[0] == false) {
-    resultado = false;
+  if (getTaxaOcupacao(double.parse(data[14]), data[3], data[6], data[2])[0] ==
+      false) {
+    return false;
   }
-  if (getTaxaPermeabilidade(data[15])[0] == false) {
-    resultado = false;
+  if (getTaxaPermeabilidade(double.parse(data[15]))[0] == false) {
+    return false;
   }
-  if (getRecuoFrontal(data[16], data[3], data[6], data[2])[0] == false) {
-    resultado = false;
+  if (getRecuoFrontal(double.parse(data[16]), data[3], data[6], data[2])[0] ==
+      false) {
+    return false;
   }
-  if (getRecuoFundo(data[17], data[3], data[6], data[2])[0] == false) {
-    resultado = false;
+  if (getRecuoFundo(double.parse(data[17]), data[3], data[6], data[2])[0] ==
+      false) {
+    return false;
   }
-  if (getRecuoLateralDireita(data[18], data[3], data[6], data[2])[0] == false) {
-    resultado = false;
+  if (getRecuoLateralDireita(
+          double.parse(data[18]), data[3], data[6], data[2])[0] ==
+      false) {
+    return false;
   }
-  if (getRecuoLateralEsquerda(data[19], data[6])[0] == false) {
-    resultado = false;
+  if (getRecuoLateralEsquerda(double.parse(data[19]), data[6])[0] == false) {
+    return false;
   }
-  if (getRecuoLateralEsquina(data[20], data[3], data[6], data[2])[0] == false) {
-    resultado = false;
+  if (getRecuoLateralEsquina(
+          double.parse(data[20]), data[3], data[6], data[2])[0] ==
+      false) {
+    return false;
   }
-  if (getAlturaEdificacao(data[21], data[23], data[16])[0] == false) {
-    resultado = false;
+  if (getAlturaEdificacao(double.parse(data[21]), double.parse(data[23]),
+          double.parse(data[16]))[0] ==
+      false) {
+    return false;
   }
-  if (getLarguraFrente(data[22], data[3], data[6], data[2])[0] == false) {
-    resultado = false;
+  if (getLarguraFrente(double.parse(data[22]), data[3], data[6], data[2])[0] ==
+      false) {
+    return false;
   }
 
-  return resultado;
+  return true;
 }
 
 String resultadoZona(String entrada) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tcc_mireli/screens/tela02.dart';
-import 'package:tcc_mireli/utils/hexcolor.dart';
-import 'package:tcc_mireli/widgets/button2.dart';
+import 'package:verificacao/screens/tela02.dart';
+import 'package:verificacao/utils/hexcolor.dart';
+import 'package:verificacao/widgets/button2.dart';
 
 class InitDialog extends StatelessWidget {
   const InitDialog({Key? key}) : super(key: key);

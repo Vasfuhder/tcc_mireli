@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tcc_mireli/utils/hexcolor.dart';
+import 'package:verificacao/utils/hexcolor.dart';
 
 class Button3 extends StatelessWidget {
   Button3({
